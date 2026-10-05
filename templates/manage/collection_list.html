@@ -1,18 +1,31 @@
 {% extends "base.html" %}
-
 {% block title %}Подборки{% endblock %}
-
-{% block header %}
-<header class="topbar">
-  <strong>Админка</strong>
-  <form method="post" action="{% url 'manage:logout' %}">
-    {% csrf_token %}
-    <button type="submit" class="btn">Выйти</button>
-  </form>
-</header>
-{% endblock %}
+{% block header %}{% include "manage/_header.html" %}{% endblock %}
 
 {% block content %}
-<h1>Подборки</h1>
-<p>Вы вошли как {{ request.user.username }}.</p>
+<div class="page-head">
+  <h1>Подборки</h1>
+  <a class="btn btn-primary" href="{% url 'manage:collection_create' %}">+ Создать подборку</a>
+</div>
+
+<div class="card">
+  {% for c in collections %}
+    {% with link=request.scheme|add:"://"|add:request.get_host|add:c.public_path %}
+    <div class="row">
+      <div class="row-main">
+        <strong>{{ c.title }}</strong>
+        <div class="muted">{{ link }}</div>
+        <div class="muted small">{{ c.items_count }} тов. · id: <code>{{ c.slug }}</code></div>
+      </div>
+      <div class="row-actions">
+        <button type="button" class="btn" data-copy="{{ link }}">Скопировать ссылку</button>
+        <a class="btn" href="{% url 'manage:collection_edit' c.pk %}">Редактировать</a>
+        <a class="btn btn-danger" href="{% url 'manage:collection_delete' c.pk %}">Удалить</a>
+      </div>
+    </div>
+    {% endwith %}
+  {% empty %}
+    <p class="muted">Подборок пока нет. Создайте первую.</p>
+  {% endfor %}
+</div>
 {% endblock %}

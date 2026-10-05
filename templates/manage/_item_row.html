@@ -1,0 +1,12 @@
+<div class="item-row" data-item-row>
+  {% for hidden in form.hidden_fields %}{{ hidden }}{% endfor %}
+  <div class="item-fields">
+    {{ form.non_field_errors }}
+    <div class="field">{{ form.title.errors }}{{ form.title }}</div>
+    <div class="field">{{ form.url.errors }}{{ form.url }}</div>
+  </div>
+  <div class="item-actions">
+    <label class="delete-toggle">{{ form.DELETE }} Удалить</label>
+    <button type="button" class="btn btn-danger btn-remove" data-remove>×</button>
+  </div>
+</div>

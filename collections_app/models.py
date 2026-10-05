@@ -25,6 +25,9 @@ class Collection(models.Model):
 
     def __str__(self):
         return self.title
+        
+    def public_path(self):
+        return f"/r/{self.slug}/"
 
 
 class CollectionItem(models.Model):
