@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Подборки{% endblock %}
+
+{% block header %}
+<header class="topbar">
+  <strong>Админка</strong>
+  <form method="post" action="{% url 'manage:logout' %}">
+    {% csrf_token %}
+    <button type="submit" class="btn">Выйти</button>
+  </form>
+</header>
+{% endblock %}
+
+{% block content %}
+<h1>Подборки</h1>
+<p>Вы вошли как {{ request.user.username }}.</p>
+{% endblock %}
