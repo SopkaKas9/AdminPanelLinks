@@ -1,4 +1,4 @@
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, URLValidator
 from django.db import models
 
 slug_validator = RegexValidator(
@@ -35,7 +35,11 @@ class CollectionItem(models.Model):
         verbose_name="Подборка",
     )
     title = models.CharField("Название (для админки)", max_length=200)
-    url = models.URLField("Ссылка", max_length=2000)
+    url = models.URLField(
+        "Ссылка",
+        max_length=2000,
+        validators=[URLValidator(schemes=["http", "https"])],
+    )
     position = models.PositiveIntegerField("Позиция", default=0)
 
     class Meta:
