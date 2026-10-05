@@ -9,9 +9,4 @@ services:
       - /srv/links/data:/data
     ports:
       - "127.0.0.1:8000:8000"
-    command: >
-      sh -c "python manage.py migrate --noinput &&
-             gunicorn config.wsgi:application
-             --bind 0.0.0.0:8000
-             --workers 2
-             --access-logfile -"
+    command: ["sh", "-c", "python manage.py migrate --noinput && exec gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 2 --access-logfile - --error-logfile - --no-control-socket"]
