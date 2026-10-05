@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Удаление{% endblock %}
+{% block header %}{% include "manage/_header.html" %}{% endblock %}
+
+{% block content %}
+<div class="card card-narrow">
+  <h1>Удалить подборку?</h1>
+  <p>Подборка «{{ collection.title }}» и все её товары будут удалены. Опубликованная ссылка перестанет работать.</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Да, удалить</button>
+    <a class="btn" href="{% url 'manage:collection_list' %}">Отмена</a>
+  </form>
+</div>
+{% endblock %}

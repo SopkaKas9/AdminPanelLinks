@@ -1,0 +1,7 @@
+<header class="topbar">
+  <a href="{% url 'manage:collection_list' %}" class="brand">Админка</a>
+  <form method="post" action="{% url 'manage:logout' %}">
+    {% csrf_token %}
+    <button type="submit" class="btn">Выйти</button>
+  </form>
+</header>

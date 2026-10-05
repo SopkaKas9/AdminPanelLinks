@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}{% if collection %}Редактирование{% else %}Новая подборка{% endif %}{% endblock %}
+{% block header %}{% include "manage/_header.html" %}{% endblock %}
+
+{% block content %}
+<h1>{% if collection %}Редактирование подборки{% else %}Новая подборка{% endif %}</h1>
+
+{% if collection %}
+{% with link=request.scheme|add:"://"|add:request.get_host|add:collection.public_path %}
+<div class="card">
+  <div class="muted small">Публичная ссылка:</div>
+  <code>{{ link }}</code>
+  <button type="button" class="btn" data-copy="{{ link }}">Скопировать</button>
+</div>
+{% endwith %}
+{% endif %}
+
+<form method="post" class="card">
+  {% csrf_token %}
+  {{ form.non_field_errors }}
+
+  <div class="field">
+    <label for="{{ form.title.id_for_label }}">Название (его видит и посетитель)</label>
+    {{ form.title.errors }}{{ form.title }}
+  </div>
+  <div class="field">
+    <label for="{{ form.slug.id_for_label }}">ID для адреса</label>
+    {{ form.slug.errors }}{{ form.slug }}
+    <div class="muted small">{{ form.slug.help_text }}</div>
+  </div>
+
+  <h2>Товары</h2>
+  {{ formset.management_form }}
+  {{ formset.non_form_errors }}
+  <div id="items" data-prefix="{{ formset.prefix }}">
+    {% for item_form in formset %}
+      {% include "manage/_item_row.html" with form=item_form %}
+    {% endfor %}
+  </div>
+  <template id="empty-row">
+    {% include "manage/_item_row.html" with form=formset.empty_form %}
+  </template>
+  <button type="button" class="btn" id="add-item">+ Добавить товар</button>
+
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <a class="btn" href="{% url 'manage:collection_list' %}">Назад к списку</a>
+  </div>
+</form>
+{% endblock %}
