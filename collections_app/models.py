@@ -1,5 +1,6 @@
 from django.core.validators import RegexValidator, URLValidator
 from django.db import models
+from django.urls import reverse
 
 slug_validator = RegexValidator(
     regex=r"^[A-Za-z0-9-]+$",
@@ -27,7 +28,7 @@ class Collection(models.Model):
         return self.title
         
     def public_path(self):
-        return f"/r/{self.slug}/"
+        return reverse("public_collection", args=[self.slug])
 
 
 class CollectionItem(models.Model):

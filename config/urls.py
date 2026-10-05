@@ -16,6 +16,9 @@ Including another URLconf
 """
 from django.urls import include, path
 
+from collections_app import views
+
 urlpatterns = [
     path("manage/", include("collections_app.urls")),
+    path("r/<slug:slug>/", views.public_collection, name="public_collection"),
 ]
