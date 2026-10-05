@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}{{ collection.title }}{% endblock %}
+
+{% block head %}
+  <meta name="robots" content="noindex">
+  <meta property="og:title" content="{{ collection.title }}">
+  <meta property="og:type" content="website">
+{% endblock %}
+
+{% block content %}
+<div class="card card-public">
+  <h1>{{ collection.title }}</h1>
+  <p class="muted">Выберите вариант — откроем его в новой вкладке</p>
+  <ul class="variants">
+    {% for item in items %}
+      <li>
+        <div class="variant-label">вариант {{ forloop.counter }}</div>
+        <a class="btn btn-primary btn-wide"
+           href="{{ item.url }}"
+           target="_blank"
+           rel="noopener noreferrer nofollow sponsored">Открыть</a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

@@ -60,3 +60,12 @@ def collection_delete(request, pk):
         messages.success(request, "Подборка удалена.")
         return redirect("manage:collection_list")
     return render(request, "manage/collection_confirm_delete.html", {"collection": collection})
+
+def public_collection(request, slug):
+    collection = get_object_or_404(Collection, slug=slug)
+    items = list(collection.items.all())
+    return render(
+        request,
+        "public/collection.html",
+        {"collection": collection, "items": items},
+    )
