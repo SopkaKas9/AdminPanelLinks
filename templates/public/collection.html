@@ -15,7 +15,7 @@
   <ul class="variants">
     {% for item in items %}
       <li>
-        <div class="variant-label">вариант {{ forloop.counter }}</div>
+        <div class="variant-label">{% if item.title %}{{ item.title }}{% else %}вариант {{ forloop.counter }}{% endif %}</div>
         <a class="btn btn-primary btn-wide"
            href="{{ item.url }}"
            target="_blank"

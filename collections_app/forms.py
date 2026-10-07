@@ -27,7 +27,7 @@ class CollectionItemForm(forms.ModelForm):
         model = CollectionItem
         fields = ["title", "url"]
         widgets = {
-            "title": forms.TextInput(attrs={"placeholder": "Название товара (видно только вам)"}),
+            "title": forms.TextInput(attrs={"placeholder": "Название товара (необязательно, видно посетителям)"}),
             "url": forms.URLInput(attrs={"placeholder": "https://ali.click/..."}),
         }
 
