@@ -82,6 +82,15 @@ class CreateTests(ManageBase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Collection.objects.count(), 0)
 
+    def test_create_allows_items_without_titles(self):
+        rows = [
+            {"title": "", "url": "https://a.example/1"},
+            {"title": "Терка", "url": "https://b.example/2"},
+        ]
+        self.post_create(rows=rows)
+        c = Collection.objects.get(slug="kitchen1")
+        self.assertEqual([i.title for i in c.items.all()], ["", "Терка"])
+
 
 class EditTests(ManageBase):
     def setUp(self):

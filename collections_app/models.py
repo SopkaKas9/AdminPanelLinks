@@ -38,7 +38,7 @@ class CollectionItem(models.Model):
         related_name="items",
         verbose_name="Подборка",
     )
-    title = models.CharField("Название (для админки)", max_length=200)
+    title = models.CharField("Название (видно посетителям)", max_length=200, blank=True)
     url = models.URLField(
         "Ссылка",
         max_length=2000,
@@ -52,4 +52,4 @@ class CollectionItem(models.Model):
         verbose_name_plural = "Товары"
 
     def __str__(self):
-        return self.title
+        return self.title or f"Товар №{self.pk}"

@@ -64,3 +64,7 @@ class CollectionItemModelTests(TestCase):
                 item = CollectionItem(collection=self.collection, title="Товар", url=url)
                 with self.assertRaises(ValidationError):
                     item.full_clean()
+    
+    def test_title_is_optional(self):
+        item = CollectionItem(collection=self.collection, title="", url="https://a.example")
+        item.full_clean()
